@@ -18,5 +18,34 @@
 require 'rails_helper'
 
 RSpec.describe Product, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  before do 
+    @category = Category.create(name: "Car")
+  end
+
+  it "Create a valid record" do
+    product = Product.new(
+      name: "BMW GT",
+      category_id: @category.id
+    )
+    expect(product).to be_valid
+  end
+  
+  # Case 1 invalid
+  it "It is invalid" do
+    product = Product.new(
+      name: "BMW GT"
+    )
+    product.valid?
+    expect(product.errors["category"]).to include("must exist")
+  end
+
+  # Case 2 different syntex
+  it "It is invalid" do
+    product = Product.new(
+      name: "BMW GT"
+    )
+    expect(product).to_not be_valid
+    expect(product.errors["category"]).to include("must exist")
+  end
+
 end
