@@ -17,9 +17,20 @@
 
 class Product < ApplicationRecord
   belongs_to :category
-  has_many :orders, dependent: :destroy
+  has_many :orders, dependent: :restrict_with_error
 
   # Validation
   validates :name, presence: true
+
+  before_destroy :check_order_exist  # 🔹 Call before deleting
+
+  private
+
+  def check_order_exist
+    if orders.any?
+      errors.add(:base, "Cannot delete product with orders")
+      throw(:abort)  # 🔹 Stop deletion
+    end 
+  end
 
 end

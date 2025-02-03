@@ -59,4 +59,17 @@ RSpec.describe Category, type: :model do
     @category.name = nil
     expect(@category).to_not be_valid
   end
+
+  # DELETE TEST CASE 
+  before do
+    @category = Category.create(name: "car")
+    product1 = Product.create(name: "BMW GT", category_id: @category.id)
+    product2 = Product.create(name: "BMW X1", category_id: @category.id)
+  end
+
+  # Sucuess
+  it "Category Delete" do
+    expect { @category.destroy }.to change { Category.count }.by(-1)
+    expect( Product.where(category_id: @category.id).count ).to eq(0)
+  end
 end
