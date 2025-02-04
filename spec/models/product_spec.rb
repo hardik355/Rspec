@@ -31,7 +31,7 @@ RSpec.describe Product, type: :model do
   end
   
   # Case 1 invalid
-  it "It is invalid" do
+  it "It is invalid because product is already exist" do
     product = Product.new(
       name: "BMW GT"
     )
@@ -40,7 +40,7 @@ RSpec.describe Product, type: :model do
   end
 
   # Case 2 different syntex
-  it "It is invalid" do
+  it "It is invalid because product is already exist" do
     product = Product.new(
       name: "BMW GT"
     )
