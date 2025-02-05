@@ -20,5 +20,5 @@ class Order < ApplicationRecord
   belongs_to :product
 
   # Validation
-  validates :quantity, presence: true
+  validates :quantity, :user, presence: true
 end
