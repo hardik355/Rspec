@@ -32,5 +32,4 @@ class Product < ApplicationRecord
       throw(:abort)  # 🔹 Stop deletion
     end 
   end
-
 end
