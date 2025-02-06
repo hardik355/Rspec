@@ -48,5 +48,18 @@ RSpec.describe User, type: :model do
       @order = Order.create!(quantity: 10, user_id: @user.id, product_id: @product.id)
       expect {@user.destroy}.to change {Order.count}.by(-1)
     end 
-  end 
+  end
+
+  # Using FactoryBot  
+  it "User is valid" do 
+    user = create(:user)
+    expect(user).to be_valid
+  end
+
+  it "Duplicate record is invalid" do
+    user = create(:user, email: "test@yopmail.com")
+    user1 = build(:user, email: "test@yopmail.com")
+    expect(user1).to_not be_valid
+    expect(user1.errors[:email]).to include("has already been taken")
+  end
 end
