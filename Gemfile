@@ -60,6 +60,7 @@ group :test do
 
   gem 'rspec-rails', '~> 7.0.0'
   gem 'factory_bot_rails'
+  gem "rails-controller-testing"
 end
 
 gem 'faker'
