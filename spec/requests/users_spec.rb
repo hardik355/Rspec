@@ -35,7 +35,7 @@ RSpec.describe "Users", type: :request do
     end
 
     # JSON
-    it "Should create a valid record with json json" do
+    it "Should create a valid record with json" do
       user_params = { user: attributes_for(:user) }
       post users_path, params: user_params, as: :json
       expect(response).to have_http_status(:created)
