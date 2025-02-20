@@ -15,12 +15,21 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_04_165311) do
   enable_extension "pg_catalog.plpgsql"
 
   create_table "categories", force: :cascade do |t|
-    t.string "name"
+    t.string "title"
+    t.string "handle"
+    t.string "body_html"
+    t.datetime "published_at"
+    t.string "collection_type"
+    t.string "rules"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "orders", force: :cascade do |t|
+    t.string "browser_ip"
+    t.string "cancel_reason"
+    t.datetime "cancelled_at"
+    t.string "currency"
     t.integer "quantity"
     t.bigint "user_id", null: false
     t.bigint "product_id", null: false
@@ -31,9 +40,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_04_165311) do
   end
 
   create_table "products", force: :cascade do |t|
-    t.string "name"
+    t.string "title"
     t.decimal "price"
     t.text "description"
+    t.string "handle"
+    t.integer "status"
     t.bigint "category_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -41,8 +52,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_04_165311) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
+    t.string "first_name", default: "", null: false
+    t.string "last_name", default: "", null: false
     t.string "email"
+    t.string "password_digest", default: "", null: false
+    t.string "mobile_number", default: "", null: false
+    t.string "mobile_country_code", default: "", null: false
+    t.decimal "main_language"
+    t.text "spoken_languages"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
