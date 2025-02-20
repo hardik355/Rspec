@@ -57,7 +57,6 @@ end
 group :test do
   gem "capybara"
   gem "selenium-webdriver"
-  gem 'rspec-rails', '~> 7.0.0'
   gem 'factory_bot_rails'
   gem "rails-controller-testing"
   gem 'rspec-rails', '~> 7.1.1'
