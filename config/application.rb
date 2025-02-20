@@ -23,5 +23,10 @@ module QueryExample
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    # For when we generate new model using factory commad
+    config.generators do |g|
+      g.test_framework :rspec
+      g.factory_bot dir: "spec/factories"
+    end    
   end
 end
