@@ -21,7 +21,7 @@ require 'rails_helper'
 
 RSpec.describe Product, type: :model do
   before do 
-    @category = Category.create(name: "Car")
+    @category = Category.create(title: "Car")
   end
 
   it "Create a valid record" do
@@ -54,7 +54,7 @@ RSpec.describe Product, type: :model do
   # 1.Destroy
   before do
     @product = Product.create(name: "Iphone 11", category_id: @category.id)
-    @user = User.create(name: "Hardik Patel", email: "hardik355@yopmail.com")
+    @user = User.create(first_name: "Hardik Patel", email: "hardik355@yopmail.com")
     @order = Order.create(quantity: 10, user_id: @user.id, product_id: @product.id) 
   end
 

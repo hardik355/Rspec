@@ -22,7 +22,7 @@ class Product < ApplicationRecord
   has_many :orders, dependent: :restrict_with_error
 
   # Validation
-  validates :name, presence: true
+  validates :title, presence: true
 
   before_destroy :check_order_exist  # 🔹 Call before deleting
 

@@ -15,6 +15,11 @@
 
 FactoryBot.define do
   factory :category do
-    name { Faker::Commerce.department }
+    title { Faker::Commerce.unique.department }
+    handle { Faker::Internet.unique.slug }
+    body_html { Faker::Lorem.paragraph }
+    published_at { Faker::Time.between(from: 2.days.ago, to: Time.now) }
+    collection_type { %w[manual automated].sample }
+    rules { Faker::Lorem.sentence }
   end
 end
