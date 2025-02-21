@@ -24,7 +24,7 @@ class Product < ApplicationRecord
   # Validation
   validates :title, presence: true
 
-  before_destroy :check_order_exist  # 🔹 Call before deleting
+  before_destroy :check_order_exist  # Call before deleting
 
   private
 
