@@ -63,3 +63,9 @@ group :test do
 end
 
 gem 'faker'
+
+# Tailwind css
+gem "vite_rails"
+
+# Gemfile
+gem 'foreman'
