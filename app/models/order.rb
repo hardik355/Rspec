@@ -2,12 +2,16 @@
 #
 # Table name: orders
 #
-#  id         :integer          not null, primary key
-#  quantity   :integer
-#  user_id    :integer          not null
-#  product_id :integer          not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id            :integer          not null, primary key
+#  browser_ip    :string
+#  cancel_reason :string
+#  cancelled_at  :datetime
+#  currency      :string
+#  quantity      :integer
+#  user_id       :integer          not null
+#  product_id    :integer          not null
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
 #
 # Indexes
 #

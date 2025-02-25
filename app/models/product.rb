@@ -3,9 +3,11 @@
 # Table name: products
 #
 #  id          :integer          not null, primary key
-#  name        :string
+#  title       :string
 #  price       :decimal(, )
 #  description :text
+#  handle      :string
+#  status      :integer
 #  category_id :integer          not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
@@ -20,9 +22,9 @@ class Product < ApplicationRecord
   has_many :orders, dependent: :restrict_with_error
 
   # Validation
-  validates :name, presence: true
+  validates :title, presence: true
 
-  before_destroy :check_order_exist  # 🔹 Call before deleting
+  before_destroy :check_order_exist  # Call before deleting
 
   private
 

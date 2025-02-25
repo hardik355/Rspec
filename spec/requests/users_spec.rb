@@ -39,13 +39,13 @@ RSpec.describe "Users", type: :request do
       user_params = { user: attributes_for(:user) }
       post users_path, params: user_params, as: :json
       expect(response).to have_http_status(:created)
-      expect(JSON.parse(response.body)["name"]).to eq(user_params[:user][:name])
+      expect(JSON.parse(response.body)["first_name"]).to eq(user_params[:user][:first_name])
       expect(User.count).to eq(6) 
     end
 
     # INVALID PARAMS
     it "Invalid param" do
-      invalid_params = { user: {name: "", email: ""}}
+      invalid_params = { user: {first_name: "", email: ""}}
       post users_path, params: invalid_params
       expect(response).to have_http_status(:unprocessable_entity) 
       expect(User.count).to eq(5)
@@ -53,13 +53,13 @@ RSpec.describe "Users", type: :request do
 
     # INVALID PARAMS
     it "Invalid param" do
-      invalid_params = { user: {name: "", email: ""}}
+      invalid_params = { user: {first_name: "", email: ""}}
       post users_path, params: invalid_params, as: :json
       expect(response).to have_http_status(:unprocessable_entity) 
       expect(User.count).to eq(5)
 
       parsed_response = JSON.parse(response.body) # Parse JSON response
-      expect(parsed_response["name"]).to include("can't be blank") # Use string keys
+      expect(parsed_response["first_name"]).to include("can't be blank") # Use string keys
       expect(parsed_response["email"]).to include("can't be blank") # Validate email errors
     end
 
@@ -67,12 +67,12 @@ RSpec.describe "Users", type: :request do
     it "it should be update user" do
       user = create(:user)
       
-      updated_params = {user: {name: "richard"}}
+      updated_params = {user: {first_name: "richard"}}
 
       patch user_path(user), params: updated_params, as: :json
       expect(response).to have_http_status(:ok)
       user.reload
-      expect(user.name).to eq("richard")
+      expect(user.first_name).to eq("richard")
       expect(user.email).to eq(user.email)
     end
     
@@ -80,12 +80,12 @@ RSpec.describe "Users", type: :request do
     it "it should be update user" do
       user = create(:user)
       
-      updated_params = {user: {name: "richard", email: "richard355@gmail.com"}}
+      updated_params = {user: {first_name: "richard", email: "richard355@gmail.com"}}
 
       put user_path(user), params: updated_params, as: :json
       expect(response).to have_http_status(:ok)
       user.reload
-      expect(user.name).to eq("richard")
+      expect(user.first_name).to eq("richard")
       expect(user.email).to eq("richard355@gmail.com")
     end
 
