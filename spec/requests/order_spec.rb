@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "Orders", type: :request do
   describe "GET /index" do
     before do
-      orders = create_list(:order, 5) 
+      orders = create_list(:order, 5)
     end 
 
     it "fetch all orders" do
