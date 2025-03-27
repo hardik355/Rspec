@@ -4,6 +4,8 @@ RSpec.describe "Orders", type: :request do
   describe "GET /index" do
     before do
       orders = create_list(:order, 5)
+      @user = create(:user)
+      @product = create(:product) 
     end 
 
     it "fetch all orders" do
@@ -18,11 +20,9 @@ RSpec.describe "Orders", type: :request do
       expect(response).to render_template(:new)
     end
 
-    # HTML Request
+    # HTML Request + valid Request
     it "Should a create a new order with valid params" do
-      user = create(:user)
-      product = create(:product) 
-      order_params = {:order=>{quantity: 10, user_id: user.id, product_id: product.id}}
+      order_params = {:order=>{quantity: 10, user_id: @user.id, product_id: @product.id}}
       post orders_path, params: order_params
       
       # Response type
@@ -31,11 +31,9 @@ RSpec.describe "Orders", type: :request do
       expect(Order.count).to eq(6)
     end
 
-    # JSON Request
+    # JSON Request + valid Request
     it "Should a create a new order with valid params with json request" do
-      user = create(:user)
-      product = create(:product) 
-      order_params = {:order=>{quantity: 10, user_id: user.id, product_id: product.id}}
+      order_params = {:order=>{quantity: 10, user_id: @user.id, product_id: @product.id}}
       post orders_path, params: order_params, as: :json
       
       # Response type
@@ -43,7 +41,35 @@ RSpec.describe "Orders", type: :request do
       expect(JSON.parse(response.body)["quantity"]).to eq(order_params[:order][:quantity])
       expect(Order.count).to eq(6)
     end
-    
 
+    # JSON Request + invalid Params
+    it "Invalid with user" do
+      order_params = {:order=>{quantity: 10, product_id: @product.id}}
+      post orders_path, params: order_params, as: :json
+
+      json_response = JSON.parse(response.body)
+      expect(response.content_type).to include("application/json")
+      expect(json_response["user"]).to include("must exist", "can't be blank")
+    end
+    
+    # JSON Request + invalid Params
+    it "Invalid with product" do
+      order_params = {:order=>{quantity: 10, user_id: @user.id}}
+      post orders_path, params: order_params, as: :json
+
+      json_response = JSON.parse(response.body)
+      expect(response.content_type).to include("application/json")
+      expect(json_response["product"]).to include("must exist")
+    end
+
+    # HTML Request + invalid Params
+    it "Invalid with product" do
+      order_params = {:order=>{quantity: 10, user_id: @user.id}}
+      post orders_path, params: order_params
+
+      expect(response.content_type).to include("text/html; charset=utf-8")
+      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response.body).to include("Product must exist")
+    end
   end
 end
