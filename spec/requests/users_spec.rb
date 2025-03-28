@@ -66,7 +66,6 @@ RSpec.describe "Users", type: :request do
     # Update Patch
     it "it should be update user" do
       user = create(:user)
-      
       updated_params = {user: {first_name: "richard"}}
 
       patch user_path(user), params: updated_params, as: :json
@@ -79,7 +78,6 @@ RSpec.describe "Users", type: :request do
     # Put
     it "it should be update user" do
       user = create(:user)
-      
       updated_params = {user: {first_name: "richard", email: "richard355@gmail.com"}}
 
       put user_path(user), params: updated_params, as: :json
@@ -101,7 +99,6 @@ RSpec.describe "Users", type: :request do
     # Delete
     it "deletes a user and confirms deletion" do
       user = create(:user)
-    
       delete user_path(user)
     
       expect(response).to have_http_status(:see_other)

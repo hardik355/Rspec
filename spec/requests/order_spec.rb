@@ -71,5 +71,61 @@ RSpec.describe "Orders", type: :request do
       expect(response).to have_http_status(:unprocessable_entity)
       expect(response.body).to include("Product must exist")
     end
+
+    # HTML PATCH + Update Request
+    it "updates order with valid params" do
+      order = create(:order)
+      order_params = {:order=>{id: order.id, quantity: 22}}
+      patch order_path(order), params: order_params
+
+      order.reload
+      expect(order.quantity).to eq(22)
+      expect(response.content_type).to include("text/html; charset=utf-8")
+    end 
+
+    # JSON PATCH + Update Request
+    it "Update order with valid prams with JSON request" do 
+      order = create(:order)
+      order_params = {:order=>{id: order.id, quantity: 24}}
+      patch order_path(order), params: order_params, as: :json
+      
+      order.reload
+      expect(order.quantity).to be(24)
+      expect(response.content_type).to include("application/json; charset=utf-8")
+    end
+
+
+    # HTML PUT + Update Request
+    it "updates order with valid params" do
+      order = create(:order)
+      order_params = {:order=>{id: order.id, quantity: 22}}
+      put order_path(order), params: order_params
+
+      order.reload
+      expect(order.quantity).to eq(22)
+      expect(response.content_type).to include("text/html; charset=utf-8")
+    end 
+
+    # JSON PUT + Update Request
+    it "Update order with valid prams with JSON request" do 
+      order = create(:order)
+      order_params = {:order=>{id: order.id, quantity: 24}}
+      put order_path(order), params: order_params, as: :json
+      
+      order.reload
+      expect(order.quantity).to be(24)
+      expect(response.content_type).to include("application/json; charset=utf-8")
+    end
+
+    it "HTML with delete" do
+      order = create(:order)
+      expect { delete order_path(order) }.to change(Order, :count).by(-1)
+    end
+
+    it "deletes a user and confirms deletion" do
+      order = create(:order)
+      delete order_path(order)
+      expect(Order.exists?(order.id)).to be_falsey # Ensure order is removed
+    end
   end
 end
