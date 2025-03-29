@@ -39,4 +39,21 @@ RSpec.describe "Categories", type: :request do
 
   end
 
+  it "Update Category with new data" do
+    category = create(:category)
+    category_params = {category:{title: "This is updated"}}
+
+    put category_path(category), params: category_params
+    expect(response.content_type).to eq("text/html; charset=utf-8")
+    category.reload
+
+    expect(category.title).to eq("This is updated")
+  end
+
+  it "destoy record" do
+    category = create(:category)
+    delete category_path(category)
+    expect(Category.exists?(category.id)).to be_falsey
+  end
+
 end
