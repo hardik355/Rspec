@@ -59,7 +59,7 @@ group :test do
   gem "selenium-webdriver"
   gem 'factory_bot_rails'
   gem "rails-controller-testing"
-  gem 'rspec-rails', '~> 7.1.1'
+  gem 'rspec-rails', '~> 8.0.0'
 end
 
 gem 'faker'
